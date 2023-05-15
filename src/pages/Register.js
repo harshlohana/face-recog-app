@@ -81,6 +81,7 @@ const Register = () => {
                     type="file"
                     onChange={handleFileChange}
                     accept="image/*"
+                    capture="camera"
                     Id={"fileInput"}
                     style={{ display: "none" }}
                   />
