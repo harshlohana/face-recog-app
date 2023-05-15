@@ -1,4 +1,51 @@
+import { useState } from "react";
+import axios from "axios";
+import FormData from "form-data";
+
 const Dash = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState("https://i.pravatar.cc/300");
+  const [name, setName] = useState("");
+
+  const handleFileChange = (event) => {
+    console.log(event.target.files[0]);
+    setSelectedFile(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreviewImage(reader.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+
+  const handlerSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      const response = await axios.post(
+        "https://1bfc-2401-4900-1c16-7dd9-14ae-d24-56f9-3dbd.ngrok-free.app/identify",
+        formData,
+        {
+          maxBodyLength: Infinity,
+        }
+      );
+      console.log(response.data);
+      if (response.data !== "No faces identified") {
+        setName(response.data);
+      } else {
+        alert("Not Recognised");
+      }
+    } catch (error) {
+      alert("Technical ErrorS");
+      console.log(error);
+    }
+  };
+
+  const thanks = () => {
+    alert("Thanks for confirming");
+  };
+
   return (
     <div className="flex-column justify-center mt-8">
       <div
@@ -31,35 +78,7 @@ const Dash = () => {
           <label className="inline-block mb-2 text-gray-500">
             Mark Attendence
           </label>
-          <div className="flex items-center justify-center w-full">
-            {/* <label className="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-              <div className="flex flex-col items-center justify-center pt-7">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8 text-gray-400 group-hover:text-gray-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
-                <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                  Click Photo
-                </p>
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                capture="camera"
-                className="opacity-0"
-              />
-  </label>*/}
-          </div>
+          <div className="flex items-center justify-center w-full"></div>
           <div class="flex items-center justify-center w-full">
             <label
               for="dropzone-file"
@@ -94,43 +113,51 @@ const Dash = () => {
                 accept="image/*"
                 capture="camera"
                 class="hidden"
+                onChange={handleFileChange}
               />
             </label>
           </div>
         </div>
         <div className="flex justify-center m20">
-          <button className="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl">
+          <button
+            className="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl"
+            onClick={handlerSubmit}
+          >
             Indentify
           </button>
         </div>
       </div>
 
-      <div class="w-full max-w-sm bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <div class="m20 mt40 flex flex-col items-center pb-10">
-          <img
-            class="w-24 h-24 mb-3 rounded-full shadow-lg"
-            src={"https://i.pravatar.cc/300"}
-            alt="logo"
-          />
-          <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            Bonnie Green
-          </h5>
-          <div class="flex mt-4 space-x-3 md:mt-6">
-            <a
-              href="/yes"
-              class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Yes it's me
-            </a>
-            <a
-              href="/no"
-              class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-            >
-              Not you ?
-            </a>
+      {name ? (
+        <div class="w-full max-w-sm bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700">
+          <div class="m20 mt40 flex flex-col items-center pb-10">
+            <img
+              class="w-24 h-24 mb-3 rounded-full shadow-lg"
+              src={previewImage}
+              alt="logo"
+            />
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+              {name}
+            </h5>
+            <div class="flex mt-4 space-x-3 md:mt-6">
+              <a
+                onClick={thanks}
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Yes it's me
+              </a>
+              <a
+                onClick={() => {
+                  window.location.href = "/register";
+                }}
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
+              >
+                Not you ?
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };
