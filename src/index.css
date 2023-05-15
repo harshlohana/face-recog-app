@@ -19,3 +19,11 @@ code {
 .m20 {
   margin: 20px;
 }
+
+.mt40 {
+  margin-top: 40px;
+}
+
+.wh {
+  height: 100vh;
+}
