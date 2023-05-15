@@ -110,6 +110,7 @@ const Dash = () => {
           <img
             class="w-24 h-24 mb-3 rounded-full shadow-lg"
             src={"https://i.pravatar.cc/300"}
+            alt="logo"
           />
           <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
             Bonnie Green

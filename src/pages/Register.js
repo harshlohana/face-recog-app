@@ -24,6 +24,7 @@ const Register = () => {
                   <img
                     class="w-24 h-24 mb-3 rounded-full shadow-lg"
                     src={"https://i.pravatar.cc/300"}
+                    alt="logo"
                   />
                 </div>
               </div>
