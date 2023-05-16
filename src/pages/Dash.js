@@ -24,7 +24,7 @@ const Dash = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/identify`,
+        `https://f2d3-2401-4900-1c16-7dd9-f54c-cfa9-17d1-9957.ngrok-free.app/identify`,
         formData,
         {
           maxBodyLength: Infinity,
@@ -37,7 +37,7 @@ const Dash = () => {
         alert("Not Recognised");
       }
     } catch (error) {
-      alert("Technical ErrorS");
+      alert("Technical Errors");
       console.log(error);
     }
   };
@@ -122,8 +122,9 @@ const Dash = () => {
           <button
             className="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl"
             onClick={handlerSubmit}
+            disabled={selectedFile == null ? true : false}
           >
-            Indentify
+            Identify
           </button>
         </div>
       </div>

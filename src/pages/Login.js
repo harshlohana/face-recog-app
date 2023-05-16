@@ -17,7 +17,7 @@ const Login = () => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: `${process.env.BACKEND_URL}/login`,
+        url: `https://f2d3-2401-4900-1c16-7dd9-f54c-cfa9-17d1-9957.ngrok-free.app/login`,
         headers: {
           "Content-Type": "application/json",
         },
