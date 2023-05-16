@@ -30,7 +30,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://1bfc-2401-4900-1c16-7dd9-14ae-d24-56f9-3dbd.ngrok-free.app/register",
+        `${process.env.BACKEND_URL}/register`,
         formData,
         {
           maxBodyLength: Infinity,

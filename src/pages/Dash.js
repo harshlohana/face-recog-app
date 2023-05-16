@@ -24,7 +24,7 @@ const Dash = () => {
 
     try {
       const response = await axios.post(
-        "https://1bfc-2401-4900-1c16-7dd9-14ae-d24-56f9-3dbd.ngrok-free.app/identify",
+        `${process.env.BACKEND_URL}/identify`,
         formData,
         {
           maxBodyLength: Infinity,
