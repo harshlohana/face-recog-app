@@ -7,6 +7,7 @@ const Dash = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [thankyou, setThankyou] = useState("");
 
   const handleFileChange = (event) => {
     console.log(event.target.files[0]);
@@ -50,7 +51,8 @@ const Dash = () => {
   };
 
   const thanks = () => {
-    alert("Thanks for confirming");
+    //alert("Thanks for confirming");
+    setThankyou("Thanks for confirmation !");
   };
 
   return (
@@ -176,22 +178,26 @@ const Dash = () => {
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
               {name}
             </h5>
-            <div className="flex mt-4 space-x-3 md:mt-6">
-              <a
-                onClick={thanks}
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Yes it's me
-              </a>
-              <a
-                onClick={() => {
-                  window.location.href = "/register";
-                }}
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Not you ?
-              </a>
-            </div>
+            {thankyou == "" ? (
+              <div className="flex mt-4 space-x-3 md:mt-6">
+                <a
+                  onClick={thanks}
+                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Yes it's me
+                </a>
+                <a
+                  onClick={() => {
+                    window.location.href = "/register";
+                  }}
+                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
+                >
+                  Not you ?
+                </a>
+              </div>
+            ) : (
+              thankyou
+            )}
           </div>
         </div>
       ) : null}
