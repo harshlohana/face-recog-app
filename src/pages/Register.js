@@ -79,7 +79,7 @@ const Register = () => {
               <div class="w-full max-w-sm bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex flex-col items-center">
                   <img
-                    class="w-24 h-24 mb-3 rounded-full shadow-lg"
+                    class="w-24 h-24 mb-3 rounded-full shadow-lg obfit"
                     src={previewImage}
                     alt="logo"
                     onClick={handleClickEvent}
