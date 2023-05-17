@@ -40,9 +40,11 @@ const Dash = () => {
         }, 3000);
       } else {
         alert("Not Recognised");
+        setLoading(false);
       }
     } catch (error) {
       alert("Technical Errors");
+      setLoading(false);
       console.log(error);
     }
   };

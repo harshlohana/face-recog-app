@@ -46,9 +46,11 @@ const Register = () => {
           window.location.href = "/login";
         }, 3000);
       } else {
+        setLoading(false);
         alert("Registeration Failed");
       }
     } catch (error) {
+      setLoading(false);
       alert("Technical Errors");
       console.log(error);
     }
