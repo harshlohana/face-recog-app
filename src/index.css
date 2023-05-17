@@ -42,3 +42,12 @@ button[disabled] {
 .obfit {
   object-fit: cover;
 }
+
+.over {
+  overflow: hidden;
+}
+
+.maxWH {
+  max-width: 300px;
+  max-height: 300px;
+}
