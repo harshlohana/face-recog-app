@@ -55,3 +55,15 @@ button[disabled] {
 .marginB {
   margin-bottom: 15px;
 }
+
+.colorOv {
+  background: #4055ff;
+}
+
+.sectionColor {
+  background: linear-gradient(
+    180deg,
+    hsla(233, 100%, 63%, 1) 40%,
+    hsla(193, 100%, 74%, 1) 100%
+  );
+}
