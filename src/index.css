@@ -67,3 +67,8 @@ button[disabled] {
     hsla(193, 100%, 74%, 1) 100%
   );
 }
+
+.minMax {
+  min-width: 234px;
+  min-height: 120px;
+}
