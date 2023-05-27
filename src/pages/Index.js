@@ -40,6 +40,15 @@ const Index = () => {
         });
     }
   };
+
+  const handleR = () => {
+    window.location.href = "/register";
+  };
+
+  const handleM = () => {
+    window.location.href = "/dashboard";
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900 flex flex-grow wh">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -120,14 +129,14 @@ const Index = () => {
         <button
           className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 marginB"
           style={{ background: "#4055ff" }}
-          onClick={handleU}
+          onClick={handleR}
         >
           Register your face
         </button>
         <button
           className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 marginB"
           style={{ background: "#4055ff" }}
-          onClick={handleU}
+          onClick={handleM}
         >
           Mark attendence
         </button>
