@@ -210,8 +210,8 @@ const Dash = () => {
     // </div>
     <section class="bg-gray-50 dark:bg-gray-900 flex flex-group wh sectionColor">
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 minMax">
+          {/* <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white txt-c">
               Mark Attendence
             </h1>
@@ -265,6 +265,98 @@ const Dash = () => {
                 )}
               </button>
             </form>
+          </div> */}
+          {/* <svg
+            class="checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              class="checkmark__circle"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              class="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </svg>
+          <div class="p-6 md:space-y-6 text-center">
+            <h3>Harsh Lohana</h3>
+            <h4>Attendence Marked !</h4>
+            <h4>{new Date().toDateString()}</h4>
+            <button class="inline-flex items-center px-4 py-2 hover:bg-indigo-600 text-white text-sm font-medium rounded-md colorOv mt"
+            onClick={() => {
+                window.location.href = "/dashboard";
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                />
+              </svg>{" "}
+              Return
+            </button>
+          </div> */}
+          <svg
+            class="crossmark addClass"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              class="crossmark__circle addClass"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              class="cross__path cross__path--right addClass"
+              fill="none"
+              d="M16,16 l20,20"
+            />
+            <path
+              class="cross__path cross__path--left addClass"
+              fill="none"
+              d="M16,36 l20,-20"
+            />
+          </svg>
+          <div class="p-6 md:space-y-6 text-center">
+            <h3>Not Recognised</h3>
+            <button
+              class="inline-flex items-center px-4 py-2 hover:bg-indigo-600 text-white text-sm font-medium rounded-md colorOv mt"
+              onClick={() => {
+                window.location.href = "/dashboard";
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                />
+              </svg>{" "}
+              Return
+            </button>
           </div>
         </div>
       </div>
