@@ -1,23 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import FormData from "form-data";
 
 const Register = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  //const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(
     "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
   );
+  const [images, setImages] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [width, setWidth] = useState("0%");
+
+  useEffect(() => {
+    //console.log(images);
+    console.log("changes images ");
+    if (images.length == 0) {
+      setPreviewImage(
+        "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+      );
+    } else {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(images[images.length - 1]);
+    }
+
+    let width = images.length * 25;
+    let lastWidth = name !== "" ? 25 : 0;
+    let total = width + lastWidth;
+    console.log(total);
+    setWidth(total + "%");
+  }, [images, name]);
 
   const handleFileChange = (event) => {
-    console.log(event.target.files[0]);
-    setSelectedFile(event.target.files[0]);
+    // console.log(event.target.files[0]);
+    let i = images;
+    i.push(event.target.files[0]);
+    setImages(i);
     const reader = new FileReader();
     reader.onload = () => {
       setPreviewImage(reader.result);
     };
     reader.readAsDataURL(event.target.files[0]);
+
+    let width = images.length * 25;
+    let lastWidth = name !== "" ? 25 : 0;
+    let total = width + lastWidth;
+    console.log(total);
+    setWidth(total + "%");
   };
 
   const handleClickEvent = (event) => {
@@ -27,14 +59,19 @@ const Register = () => {
   const handlerSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    console.log(selectedFile);
+    console.log(images);
     const formData = new FormData();
-    formData.append("images", selectedFile);
+    images.forEach((img, i) => {
+      if (i <= 1) {
+        console.log(i);
+        formData.append("images", img);
+      }
+    });
     formData.append("name", name);
 
     try {
       const response = await axios.post(
-        `https://5298-2401-4900-1c16-7dd9-a59e-7b0f-cdfe-d074.ngrok-free.app/register`,
+        `http://3.71.203.179:5000/register`,
         formData,
         {
           maxBodyLength: Infinity,
@@ -45,7 +82,7 @@ const Register = () => {
         setTimeout(() => {
           alert("Registeration Successfull !");
           setLoading(false);
-          window.location.href = "/login";
+          window.location.href = "/dashboard";
         }, 3000);
       } else {
         setLoading(false);
@@ -55,6 +92,19 @@ const Register = () => {
       setLoading(false);
       alert("Technical Errors");
       console.log(error);
+    }
+  };
+
+  const handleRemove = (index) => {
+    try {
+      console.log(index);
+      console.log("removing", images[index]);
+      //   let removedA = images.splice(index, 1);
+      let removedA = images.slice(0, index).concat(images.slice(index + 1));
+      console.log(removedA);
+      setImages(removedA);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -70,10 +120,10 @@ const Register = () => {
               <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                 <div
                   class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-                  style={{ width: "45%" }}
+                  style={{ width: `${width}` }}
                 >
                   {" "}
-                  45%
+                  {width}
                 </div>
               </div>
 
@@ -92,90 +142,45 @@ const Register = () => {
                     capture="camera"
                     Id={"fileInput"}
                     style={{ display: "none" }}
+                    disabled={images.length == 3}
                   />
                 </div>
               </div>
-              <span
-                id="badge-dismiss-default"
-                class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-blue-800 bg-blue-100 rounded dark:bg-blue-900 dark:text-blue-300"
-              >
-                Img 1
-                <button
-                  type="button"
-                  class="inline-flex items-center p-0.5 ml-2 text-sm text-blue-400 bg-transparent rounded-sm hover:bg-blue-200 hover:text-blue-900 dark:hover:bg-blue-800 dark:hover:text-blue-300"
-                  data-dismiss-target="#badge-dismiss-default"
-                  aria-label="Remove"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-3.5 h-3.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
+              {images.map((img, i) => {
+                return (
+                  <span
+                    id="badge-dismiss-default"
+                    class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-blue-800 bg-blue-100 rounded dark:bg-blue-900 dark:text-blue-300"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  <span class="sr-only"></span>
-                </button>
-              </span>
-              <span
-                id="badge-dismiss-default"
-                class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-blue-800 bg-blue-100 rounded dark:bg-blue-900 dark:text-blue-300"
-              >
-                Img 2
-                <button
-                  type="button"
-                  class="inline-flex items-center p-0.5 ml-2 text-sm text-blue-400 bg-transparent rounded-sm hover:bg-blue-200 hover:text-blue-900 dark:hover:bg-blue-800 dark:hover:text-blue-300"
-                  data-dismiss-target="#badge-dismiss-default"
-                  aria-label="Remove"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-3.5 h-3.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  <span class="sr-only"></span>
-                </button>
-              </span>
-              <span
-                id="badge-dismiss-default"
-                class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-blue-800 bg-blue-100 rounded dark:bg-blue-900 dark:text-blue-300"
-              >
-                Img 3
-                <button
-                  type="button"
-                  class="inline-flex items-center p-0.5 ml-2 text-sm text-blue-400 bg-transparent rounded-sm hover:bg-blue-200 hover:text-blue-900 dark:hover:bg-blue-800 dark:hover:text-blue-300"
-                  data-dismiss-target="#badge-dismiss-default"
-                  aria-label="Remove"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-3.5 h-3.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  <span class="sr-only"></span>
-                </button>
-              </span>
+                    Img {i + 1}
+                    <button
+                      type="button"
+                      class="inline-flex items-center p-0.5 ml-2 text-sm text-blue-400 bg-transparent rounded-sm hover:bg-blue-200 hover:text-blue-900 dark:hover:bg-blue-800 dark:hover:text-blue-300"
+                      data-dismiss-target="#badge-dismiss-default"
+                      aria-label="Remove"
+                      id={i}
+                      onClick={() => {
+                        handleRemove(i);
+                      }}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      <span class="sr-only"></span>
+                    </button>
+                  </span>
+                );
+              })}
               <div>
                 <label
                   for="email"
@@ -198,7 +203,7 @@ const Register = () => {
               <button
                 class="w-full text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-600 dark:focus:ring-primary-800 colorOv"
                 onClick={handlerSubmit}
-                disabled={true}
+                disabled={width == "100%" ? false : true}
               >
                 {loading ? (
                   <>
