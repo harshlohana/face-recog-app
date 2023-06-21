@@ -17,7 +17,7 @@ const Index = () => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: `https://5298-2401-4900-1c16-7dd9-a59e-7b0f-cdfe-d074.ngrok-free.app/login`,
+        url: `https://3.71.203.179:5000/login`,
         headers: {
           "Content-Type": "application/json",
         },

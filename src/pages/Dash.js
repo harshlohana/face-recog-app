@@ -30,7 +30,7 @@ const Dash = () => {
 
     try {
       const response = await axios.post(
-        `http://3.71.203.179:5000/identify`,
+        `https://3.71.203.179:5000/identify`,
         formData,
         {
           maxBodyLength: Infinity,

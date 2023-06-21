@@ -71,7 +71,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `http://3.71.203.179:5000/register`,
+        `https://3.71.203.179:5000/register`,
         formData,
         {
           maxBodyLength: Infinity,
