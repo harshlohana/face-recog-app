@@ -17,7 +17,7 @@ const Index = () => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: `https://3.71.203.179:5000/login`,
+        url: `https://recog.mantracollab.com:5000/login`,
         headers: {
           "Content-Type": "application/json",
         },

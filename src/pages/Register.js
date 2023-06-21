@@ -71,7 +71,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `https://3.71.203.179:5000/register`,
+        `https://recog.mantracollab.com:5000/register`,
         formData,
         {
           maxBodyLength: Infinity,
